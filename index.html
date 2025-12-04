@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Juego de la Vida - Conway</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Canvas -->
+    <div id="canvasContainer"></div>
+
+    <!-- Panel de controles -->
+    <div id="controls">
+      <h3>Juego de la Vida (Conway)</h3>
+
+      <label>Color de las células vivas</label>
+      <input id="colorPicker" type="color" value="#4da3ff" />
+
+      <label>Velocidad (generaciones/s)</label>
+      <input id="speed" type="range" min="1" max="30" value="6" />
+
+      <button id="startPause">Iniciar</button>
+      <button id="step">Paso</button>
+      <button id="randomize">Aleatorio</button>
+      <button id="clear">Limpiar</button>
+
+      <button id="placeSingle">Colocar célula</button>
+      <button id="placeGlider">Colocar Glider</button>
+
+      <label>Patrones avanzados</label>
+      <select id="patternSelector">
+        <option value="none">-- Selecciona un patrón --</option>
+        <option value="lwss">LWSS (Lightweight Spaceship)</option>
+        <option value="mwss">MWSS (Medium Spaceship)</option>
+        <option value="hwss">HWSS (Heavy Spaceship)</option>
+        <option value="pulsar">Pulsar</option>
+        <option value="pentadecathlon">Pentadecathlon</option>
+        <option value="glidergun">Gosper Glider Gun</option>
+      </select>
+
+      <div class="row">
+        <button id="enableSound" class="small">Activar sonido</button>
+        <span>Sonido: <span id="soundStatus">Desactivado</span></span>
+      </div>
+
+      <div class="status">
+        Generación: <span id="genCount">0</span><br />
+        Tiempo: <span id="runTime">00:00</span>
+      </div>
+
+      <p class="info">
+        Haz clic en el canvas para colocar patrones según el modo seleccionado.
+      </p>
+    </div>
+
+    <!-- Librerías -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/addons/p5.sound.min.js"></script>
+
+    <!-- Script principal -->
+    <script src="sketch.js"></script>
+  </body>
+</html>
