@@ -1,11 +1,7 @@
-// JUEGO DE LA VIDA - CONWAY
-// Version completa con patrones, modos y sonido
-
 let cols, rows;
 let grid, nextGrid;
 let cellSize = 12;
 
-// UI
 let startPauseBtn, stepBtn, randomizeBtn, clearBtn;
 let placeSingleBtn, placeGliderBtn, patternSelector;
 let colorPicker, speedSlider;
@@ -14,23 +10,19 @@ let genCountP, runTimeP;
 
 let mode = "toggle";
 
-// Simulación
 let running = false;
 let generation = 0;
 let lastStepMillis = 0;
 let runStartMillis = 0;
 
-// Sonido
 let osc, env;
 let soundEnabled = false;
 
-// ====== SETUP =====================================================
 function setup() {
   calculateGrid();
   let cnv = createCanvas(cols * cellSize, rows * cellSize);
   cnv.parent("canvasContainer");
 
-  // UI elementos
   colorPicker = select("#colorPicker");
   speedSlider = select("#speed");
 
@@ -49,7 +41,6 @@ function setup() {
   genCountP = select("#genCount");
   runTimeP = select("#runTime");
 
-  // Eventos
   startPauseBtn.mousePressed(toggleRun);
   stepBtn.mousePressed(step);
   randomizeBtn.mousePressed(randomizeGrid);
@@ -77,18 +68,15 @@ function setup() {
 
   enableSoundBtn.mousePressed(toggleSound);
 
-  // Sonido
   osc = new p5.Oscillator("sine");
   env = new p5.Envelope();
   env.setADSR(0.001, 0.05, 0, 0.05);
   env.setRange(0.5, 0);
 
-  // Inicializar grillas
   initGrid();
   randomizeGrid();
 }
 
-// ====== DRAW =====================================================
 function draw() {
   background(0);
   drawGrid();
@@ -107,7 +95,6 @@ function draw() {
   }
 }
 
-// ====== GRID SETUP ================================================
 function calculateGrid() {
   cols = Math.floor(windowWidth / cellSize) - 2;
   rows = Math.floor(windowHeight / cellSize) - 2;
@@ -138,7 +125,6 @@ function clearGrid() {
   runStartMillis = 0;
 }
 
-// ====== DRAW GRID ==================================================
 function drawGrid() {
   stroke(50);
   fill(colorPicker.value());
@@ -154,7 +140,6 @@ function drawGrid() {
   }
 }
 
-// ====== NEIGHBORS ==================================================
 function neighbors(x, y) {
   let sum = 0;
   for (let i = -1; i <= 1; i++) {
@@ -170,7 +155,6 @@ function neighbors(x, y) {
   return sum;
 }
 
-// ====== STEP =======================================================
 function step() {
   let births = [];
   let deaths = [];
@@ -194,7 +178,6 @@ function step() {
     }
   }
 
-  // Copiar matriz
   for (let x = 0; x < cols; x++)
     for (let y = 0; y < rows; y++) grid[x][y] = nextGrid[x][y];
 
@@ -207,7 +190,6 @@ function step() {
   }
 }
 
-// ====== MODOS DE CLICK =============================================
 function mousePressed() {
   if (mouseX < 0 || mouseY < 0 || mouseX >= width || mouseY >= height) return;
 
@@ -242,7 +224,6 @@ function mousePressed() {
   if (soundEnabled) playSound(600);
 }
 
-// ====== PATRONES ====================================================
 function placeGlider(x, y) {
   const p = [
     [1, 0],
@@ -364,7 +345,6 @@ function placePentadecathlon(x, y) {
 }
 
 function placeGliderGun(x, y) {
-  // Gosper Glider Gun compressed coordinates
   const gun = [
     [0, 4],
     [0, 5],
@@ -414,7 +394,6 @@ function placePattern(x, y, pattern) {
   }
 }
 
-// ====== SOUND ========================================================
 function toggleSound() {
   userStartAudio();
   soundEnabled = !soundEnabled;
@@ -431,7 +410,6 @@ function playSound(freq) {
   env.play(osc);
 }
 
-// ====== UTILIDADES ===================================================
 function toggleRun() {
   running = !running;
   startPauseBtn.html(running ? "Pausar" : "Iniciar");
