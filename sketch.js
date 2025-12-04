@@ -410,6 +410,7 @@ function playSound(freq) {
   env.play(osc);
 }
 
+//hola
 function toggleRun() {
   running = !running;
   startPauseBtn.html(running ? "Pausar" : "Iniciar");
